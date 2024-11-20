@@ -1,0 +1,112 @@
+﻿@model CRUDLuisPosadaEF.Models.Libro
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" id="editLibroForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Isbn" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publicacion" class="control-label"></label>
+                <input asp-for="Publicacion" class="form-control" />
+                <span asp-validation-for="Publicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaRegistro" class="control-label"></label>
+                <input asp-for="FechaRegistro" class="form-control" />
+                <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoCategoria" class="control-label"></label>
+                <select asp-for="CodigoCategoria" class="form-control" asp-items="ViewBag.CodigoCategoria"></select>
+                <span asp-validation-for="CodigoCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NitEditorial" class="control-label"></label>
+                <select asp-for="NitEditorial" class="form-control" asp-items="ViewBag.NitEditorial"></select>
+                <span asp-validation-for="NitEditorial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="confirmarEdicionLibro()">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function confirmarEdicionLibro() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Estás a punto de editar este libro!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, editar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    editarLibro();
+                }
+            });
+        }
+
+        function editarLibro() {
+            const form = $('#editLibroForm'); // Selecciona el formulario
+            const actionUrl = form.attr('action'); // Obtiene la URL de acción
+            const formData = form.serialize(); // Serializa los datos del formulario
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                success: function () {
+                    Swal.fire(
+                        'Editado!',
+                        'El libro ha sido editado exitosamente.',
+                        'success'
+                    ).then(() => {
+                        // Redirecciona a la lista de libros
+                        window.location.href = '/Libroes/Index';
+                    });
+                },
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        'Ocurrió un problema al intentar editar el libro.',
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+}

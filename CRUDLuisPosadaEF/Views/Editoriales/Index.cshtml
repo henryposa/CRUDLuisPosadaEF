@@ -1,0 +1,176 @@
+﻿@model IEnumerable<CRUDLuisPosadaEF.Models.Editoriale>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Editoriales</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nueva Editorial</a>
+</p> 
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sitioweb)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sitioweb)
+            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Nit" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Nit" class="btn btn-primary">Detalles</a> |
+                    <button class="btn btn-danger" onclick="confirmarEliminar(@item.Nit)">Eliminar</button>
+                </td>
+
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- Script para inicializar DataTables con botones de exportación -->
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        className: 'botonCopiar btn'
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'Exportar CSV',
+                        className: 'botonCsv btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Exportar Excel',
+                        className: 'botonExcel btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Exportar PDF',
+                        className: 'botonPdf btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        className: 'botonPrint btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Filtrar',
+                        className: 'botonColvis btn'
+                    }
+                ],
+            }
+        },
+        scrollX: true,
+        initComplete: function (json, settings) {
+            $(".dt-buttons").removeClass("dt-buttons");
+            // Agregar clase para añadir estilos personalizados
+            $(".dt-button").addClass("botones");
+            // Elimina la clase de los estilos por defecto de DataTables
+            $(".dt-button").addClass("botones");
+        }
+    });
+</script>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarEliminar(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarEditorial(id);
+                }
+            })
+        }
+
+        function eliminarEditorial(id) {
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmed", "Editoriales")',
+                type: 'POST',
+                data: { id: id },
+                success: function (result) {
+                    if (result.success) {
+                        Swal.fire(
+                            'Eliminado',
+                            result.message,
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error',
+                            result.message,
+                            'error'
+                        );
+                    }
+                },
+                error: function () {
+                    Swal.fire(
+                        'Error',
+                        'Ocurrió un problema al intentar eliminar el registro.',
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+}

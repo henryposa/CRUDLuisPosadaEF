@@ -1,0 +1,61 @@
+﻿@model CRUDLuisPosadaEF.Models.LibrosAutor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>LibrosAutor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" id="editForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdLibrosAutor" />
+            <div class="form-group">
+                <label asp-for="IdAutor" class="control-label"></label>
+                <select asp-for="IdAutor" class="form-control" asp-items="ViewBag.IdAutor"></select>
+                <span asp-validation-for="IdAutor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Isbn" class="control-label"></label>
+                <select asp-for="Isbn" class="form-control" asp-items="ViewBag.Isbn"></select>
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="confirmarEdicion()">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarEdicion() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Se guardarán los cambios realizados.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, guardar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('editForm').submit();
+                }
+            });
+        }
+    </script>
+}

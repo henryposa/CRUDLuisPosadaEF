@@ -1,0 +1,173 @@
+﻿@model IEnumerable<CRUDLuisPosadaEF.Models.Autor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Autores</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nuevo Autor</a>
+</p>
+
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nacionalidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nacionalidad)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.IdAutor">Editar</a> |
+                    <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.IdAutor">Detalles</a> |
+                    <button class="btn btn-danger" onclick="confirmarEliminar(@item.IdAutor)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarEliminar(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarAutor(id);
+                }
+            })
+        }
+
+        function eliminarAutor(id) {
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmed", "Autors")',
+                type: 'POST',
+                data: { id: id },
+                success: function (result) {
+                    if (result.success) {
+                        Swal.fire(
+                            'Eliminado!',
+                            result.message,
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            result.message,
+                            'error'
+                        );
+                    }
+                },
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        'Hubo un problema al eliminar el autor.',
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+}
+
+<!-- Script para inicializar DataTables con botones de exportación -->
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        className: 'botonCopiar btn'
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'Exportar CSV',
+                        className: 'botonCsv btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Exportar Excel',
+                        className: 'botonExcel btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Exportar PDF',
+                        className: 'botonPdf btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        },
+                        customize: function (doc) {
+                            // Centrar la tabla en el PDF
+                            doc.content[1].alignment = 'center'; // Centra el contenido
+                            doc.content[1].table.widths = ['*', '*', '*', '*']; // Ajusta las columnas
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Imprimir',
+                        className: 'botonPrint btn',
+                        exportOptions: {
+                            columns: ':not(:last-child)'  // Excluye la última columna
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Filtrar',
+                        className: 'botonColvis btn'
+                    }
+                ],
+            }
+        },
+        scrollX: true,
+        initComplete: function (json, settings) {
+            $(".dt-buttons").removeClass("dt-buttons");
+            // Agregar clase para añadir estilos personalizados
+            $(".dt-button").addClass("botones");
+            // Elimina la clase de los estilos por defecto de DataTables
+            $(".dt-button").addClass("botones");
+        }
+    });
+
+</script>

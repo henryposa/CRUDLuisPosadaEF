@@ -1,0 +1,88 @@
+﻿@model CRUDLuisPosadaEF.Models.Categoria
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Categoria</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" id="editForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CodigoCategoria" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="confirmarEdicion()">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function confirmarEdicion() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Estás a punto de editar esta categoría!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, editar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Envía el formulario
+                    editarCategoria();
+                }
+            });
+        }
+
+        function editarCategoria() {
+            const form = $('#editForm'); // Selecciona el formulario
+            const actionUrl = form.attr('action'); // Obtiene la URL de acción
+            const formData = form.serialize(); // Serializa los datos del formulario
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                success: function () {
+                    Swal.fire(
+                        'Editado!',
+                        'La categoría ha sido editada exitosamente.',
+                        'success'
+                    ).then(() => {
+                        // Redirecciona a la lista de categorías
+                        window.location.href = '/Categorias/Index';
+                    });
+                },
+                error: function () {
+                    Swal.fire(
+                        'Error!',
+                        'Ocurrió un problema al intentar editar la categoría.',
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+}

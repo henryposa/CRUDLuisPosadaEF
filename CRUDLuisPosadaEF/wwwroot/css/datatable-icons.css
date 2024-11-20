@@ -1,0 +1,65 @@
+﻿.botonCopiar {
+    background-image: url('/icons/copy.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}
+
+.botonCsv {
+    background-image: url('/icons/csv.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}
+
+.botonExcel {
+    background-image: url('/icons/xlsx.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}
+
+.botonPdf {
+    background-image: url('/icons/pdf.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}
+
+.botonPrint {
+    background-image: url('/icons/imprimir.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}
+
+.botonColvis {
+    background-image: url('/icons/filtrar.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 40px; /* Ajuste proporcional del icono */
+    padding-left: 50px; /* Espacio para el ícono */
+    width: 40px; /* Ancho del botón ajustado para solo mostrar el ícono */
+    height: 40px; /* Alto del botón ajustado */
+    text-indent: -9999px; /* Ocultar el texto */
+}

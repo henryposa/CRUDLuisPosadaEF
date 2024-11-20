@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Bienvenido a Libreria Posada</h1>
+    <p class="lead">Una plataforma para gestionar tus Autores, Categorías, Editoriales y Libros favoritos.</p>
+    <hr class="my-4">
+</div>
+
+<!-- Carrusel de Portadas de Libros -->
+<div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <!-- Item 1 -->
+        <div class="carousel-item active">
+            <img src="~/images/book1.jpg" class="d-block w-100 carousel-img" alt="Portada Libro 1">
+        </div>
+        <!-- Item 2 -->
+        <div class="carousel-item">
+            <img src="~/images/book2.jpg" class="d-block w-100 carousel-img" alt="Portada Libro 2">
+        </div>
+        <!-- Item 3 -->
+        <div class="carousel-item">
+            <img src="~/images/book3.jpg" class="d-block w-100 carousel-img" alt="Portada Libro 3">
+        </div>
+    </div>
+    <!-- Controles del Carrusel -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Gestiona tus datos fácilmente</h2>
+    <div class="row mt-4">
+        <!-- Enlace a Autores -->
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="~/images/foto1.jpg" class="card-img-top" alt="Autores">
+                <div class="card-body">
+                    <h5 class="card-title">Autores</h5>
+                    <p class="card-text">Gestiona los autores de tus libros y sus detalles.</p>
+                    <a href="@Url.Action("Index", "Autors")" class="btn btn-primary">Ver Autores</a>
+                </div>
+            </div>
+        </div>
+        <!-- Enlace a Categorias -->
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="~/images/foto2.jpg" class="card-img-top" alt="Categorías">
+                <div class="card-body">
+                    <h5 class="card-title">Categorías</h5>
+                    <p class="card-text">Organiza los libros en categorías específicas.</p>
+                    <a href="@Url.Action("Index", "Categorias")" class="btn btn-primary">Ver Categorías</a>
+                </div>
+            </div>
+        </div>
+        <!-- Enlace a Editoriales -->
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="~/images/foto3.jpg" class="card-img-top" alt="Editoriales">
+                <div class="card-body">
+                    <h5 class="card-title">Editoriales</h5>
+                    <p class="card-text">Gestiona las editoriales que publican los libros.</p>
+                    <a href="@Url.Action("Index", "Editoriales")" class="btn btn-primary">Ver Editoriales</a>
+                </div>
+            </div>
+        </div>
+        <!-- Enlace a Libros -->
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="~/images/foto4.jpg" class="card-img-top" alt="Libros">
+                <div class="card-body">
+                    <h5 class="card-title">Libros</h5>
+                    <p class="card-text">Gestiona los libros disponibles en el sistema.</p>
+                    <a href="@Url.Action("Index", "Libros")" class="btn btn-primary">Ver Libros</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos CSS personalizados -->
+<style>
+    /* Estilo para las imágenes del carrusel */
+    .carousel-img {
+        height: 300px; /* Ajusta la altura para un formato rectangular */
+        object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+    }
+
+    /* Estilo para las imágenes dentro de los cards */
+    .card-img-top {
+        height: 200px; /* Ajusta el tamaño para que todas las imágenes tengan la misma altura */
+        object-fit: cover; /* Hace que las imágenes se recorten si es necesario */
+    }
+</style>

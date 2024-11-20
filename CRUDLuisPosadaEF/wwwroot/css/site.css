@@ -1,0 +1,92 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/*nuevas*/
+.bg-library-blue {
+    background-color: #007BFF; /* Cambia a un tono de azul que prefieras */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important; /* Asegura que el texto en la barra de navegación sea visible */
+}
+
+.nav-link {
+    transition: background-color 0.3s, color 0.3s; /* Animación suave */
+}
+
+    .nav-link:hover {
+        background-color: #0056b3; /* Color azul más oscuro */
+        color: white; /* Texto blanco */
+    }
+
+.navbar-brand {
+    margin-right: 100px; /* Ajusta el valor según lo que necesites */
+}
+
+td.button-group {
+    white-space: nowrap; /* Evita que los botones se rompan en varias líneas */
+}
+
+    td.button-group a {
+        display: inline-block; /* Alinea los botones en línea */
+        margin-right: 10px; /* Espacio entre los botones */
+    }
+
+/* Separar los botones del DataTable */
+#example_length, #example_filter {
+    margin-bottom: 30px; /* Espacio entre los controles de la tabla y los botones */
+}
+
+/* Separar el botón Crear Nuevo del DataTable */
+.btn-success {
+    margin-bottom: 30px; /* Espacio entre el botón de Crear Nuevo y la tabla */
+}
+
+/* Estilo para separar los botones del DataTable */
+.dt-buttons .btn {
+    margin-right: 30px; /* Espacio entre los botones */
+}
+
+/* Si quieres separar más los botones verticalmente */
+.dt-buttons {
+    margin-bottom: 30px; /* Ajusta el espacio entre los botones */
+}
+
+/* Mejorar el espaciado entre los botones */
+.botonCopiar,
+.botonCsv,
+.botonExcel,
+.botonPdf,
+.botonPrint,
+.botonColvis {
+    margin-bottom: 30px; /* Añadir un margen inferior para separar los botones */
+}
+
+/*datatable exportacion*/
+table {
+    width: 100%;
+    margin: 0 auto; /* Centra la tabla */
+}
+
+
+
